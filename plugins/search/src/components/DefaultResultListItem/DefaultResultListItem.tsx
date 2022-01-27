@@ -15,7 +15,7 @@
  */
 
 import React, { ReactNode } from 'react';
-import { IndexableDocument } from '@backstage/search-common';
+import { SearchDocument } from '@backstage/search-common';
 import {
   ListItem,
   ListItemIcon,
@@ -28,7 +28,7 @@ import { Link } from '@backstage/core-components';
 type Props = {
   icon?: ReactNode;
   secondaryAction?: ReactNode;
-  result: IndexableDocument;
+  result: SearchDocument;
 };
 
 export const DefaultResultListItem = ({

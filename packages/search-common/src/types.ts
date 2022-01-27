@@ -69,6 +69,12 @@ export interface IndexableDocument {
 }
 
 /**
+ * Properties of {@link IndexableDocument}s that are relevant to frontend
+ * consumers.
+ */
+export type SearchDocument = Omit<IndexableDocument, 'authorization'>;
+
+/**
  * Information about a specific document type. Intended to be used in the
  * {@link @backstage/search-backend-node#IndexBuilder} to collect information
  * about the types stored in the index.

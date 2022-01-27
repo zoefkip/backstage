@@ -56,6 +56,11 @@ export type QueryRequestOptions = {
 // @public
 export type QueryTranslator = (query: SearchQuery) => unknown;
 
+// Warning: (ae-missing-release-tag) "SearchDocument" is exported by the package, but it is missing a release tag (@alpha, @beta, @public, or @internal)
+//
+// @public
+export type SearchDocument = Omit<IndexableDocument, 'authorization'>;
+
 // Warning: (ae-missing-release-tag) "SearchEngine" is exported by the package, but it is missing a release tag (@alpha, @beta, @public, or @internal)
 //
 // @public

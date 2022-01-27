@@ -9,13 +9,13 @@ import { ApiRef } from '@backstage/core-plugin-api';
 import { AsyncState } from 'react-use/lib/useAsync';
 import { BackstagePlugin } from '@backstage/core-plugin-api';
 import { IconComponent } from '@backstage/core-plugin-api';
-import { IndexableDocument } from '@backstage/search-common';
 import { InputBaseProps } from '@material-ui/core';
 import { JsonObject } from '@backstage/types';
 import { default as React_2 } from 'react';
 import { ReactElement } from 'react';
 import { ReactNode } from 'react';
 import { RouteRef } from '@backstage/core-plugin-api';
+import { SearchDocument } from '@backstage/search-common';
 import { SearchQuery } from '@backstage/search-common';
 import { SearchResult as SearchResult_2 } from '@backstage/search-common';
 import { SearchResultSet } from '@backstage/search-common';
@@ -30,7 +30,7 @@ export const DefaultResultListItem: ({
 }: {
   icon?: ReactNode;
   secondaryAction?: ReactNode;
-  result: IndexableDocument;
+  result: SearchDocument;
 }) => JSX.Element;
 
 // Warning: (ae-forgotten-export) The symbol "FiltersProps" needs to be exported by the entry point index.d.ts
