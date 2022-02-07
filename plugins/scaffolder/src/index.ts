@@ -41,6 +41,7 @@ export {
   ScaffolderPage,
   scaffolderPlugin as plugin,
   scaffolderPlugin,
+  NextScaffolderPage,
 } from './plugin';
 export {
   EntityNamePicker,
