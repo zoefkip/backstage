@@ -38,7 +38,7 @@ export type EntityPagination = {
 };
 
 /**
- * Matches rows in the entities_search table.
+ * Matches rows in the search table.
  */
 export type EntitiesSearchFilter = {
   /**
