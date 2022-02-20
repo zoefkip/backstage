@@ -19,8 +19,10 @@ import { Grid, makeStyles } from '@material-ui/core';
 
 import { EntityName } from '@backstage/catalog-model';
 
+import { useTechDocsPage } from '../TechDocsPage';
 import { TechDocsSearch } from '../TechDocsSearch';
 import { TechDocsStateIndicator } from '../TechDocsStateIndicator';
+
 import { useTechDocsReader, TechDocsReaderProvider } from './context';
 
 const useStyles = makeStyles(() => ({
@@ -43,6 +45,7 @@ const TechDocsReaderPage = ({
   children,
 }: TechDocsReaderPageProps) => {
   const classes = useStyles();
+  const { isReady } = useTechDocsPage();
   const { content, entityName: entityId } = useTechDocsReader();
 
   return (
@@ -50,7 +53,7 @@ const TechDocsReaderPage = ({
       <Grid xs={12} item>
         <TechDocsStateIndicator />
       </Grid>
-      {search && (
+      {isReady && search && (
         <Grid className={classes.searchBar} xs={12} item>
           <TechDocsSearch entityId={entityId} />
         </Grid>

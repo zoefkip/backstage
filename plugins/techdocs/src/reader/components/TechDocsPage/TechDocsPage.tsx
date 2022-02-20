@@ -14,72 +14,61 @@
  * limitations under the License.
  */
 
-import React, { useCallback, useState } from 'react';
+import React, { FC } from 'react';
 import { useOutlet } from 'react-router';
-import { useParams } from 'react-router-dom';
-import useAsync from 'react-use/lib/useAsync';
-import { techdocsApiRef } from '../../../api';
-import { LegacyTechDocsPage } from './LegacyTechDocsPage';
-import { TechDocsEntityMetadata, TechDocsMetadata } from '../../../types';
-import { EntityName } from '@backstage/catalog-model';
-import { useApi, useApp } from '@backstage/core-plugin-api';
-import { Page } from '@backstage/core-components';
 
-export type TechDocsPageRenderFunction = ({
-  techdocsMetadataValue,
-  entityMetadataValue,
-  entityRef,
-}: {
-  techdocsMetadataValue?: TechDocsMetadata | undefined;
-  entityMetadataValue?: TechDocsEntityMetadata | undefined;
-  entityRef: EntityName;
+import { Page, Content } from '@backstage/core-components';
+import { EntityName } from '@backstage/catalog-model';
+
+import { TechDocsEntityMetadata, TechDocsMetadata } from '../../../types';
+import { TechDocsPageHeader } from '../TechDocsPageHeader';
+import { Reader } from '../Reader';
+import { TechDocsPageProvider } from './context';
+
+export type TechDocsPageRenderParams = {
   onReady: () => void;
-}) => JSX.Element;
+  entityRef: EntityName;
+  entityMetadataValue?: TechDocsEntityMetadata | undefined;
+  techdocsMetadataValue?: TechDocsMetadata | undefined;
+};
+
+export type TechDocsPageRenderFunction = (
+  params: TechDocsPageRenderParams,
+) => JSX.Element;
 
 export type TechDocsPageProps = {
   children?: TechDocsPageRenderFunction | React.ReactNode;
 };
 
 export const TechDocsPage = ({ children }: TechDocsPageProps) => {
-  const { NotFoundErrorPage } = useApp().getComponents();
   const outlet = useOutlet();
 
-  const [documentReady, setDocumentReady] = useState<boolean>(false);
-  const { namespace, kind, name } = useParams();
-
-  const techdocsApi = useApi(techdocsApiRef);
-
-  const { value: techdocsMetadataValue } = useAsync(() => {
-    if (documentReady) {
-      return techdocsApi.getTechDocsMetadata({ kind, namespace, name });
-    }
-
-    return Promise.resolve(undefined);
-  }, [kind, namespace, name, techdocsApi, documentReady]);
-
-  const { value: entityMetadataValue, error: entityMetadataError } =
-    useAsync(() => {
-      return techdocsApi.getEntityMetadata({ kind, namespace, name });
-    }, [kind, namespace, name, techdocsApi]);
-
-  const onReady = useCallback(() => {
-    setDocumentReady(true);
-  }, [setDocumentReady]);
-
-  if (entityMetadataError) return <NotFoundErrorPage />;
-
-  if (!children) return outlet || <LegacyTechDocsPage />;
+  if (!children) {
+    return outlet;
+  }
 
   return (
     <Page themeId="documentation">
-      {children instanceof Function
-        ? children({
-            techdocsMetadataValue,
-            entityMetadataValue,
-            entityRef: { kind, namespace, name },
-            onReady,
-          })
-        : children}
+      <TechDocsPageProvider>{children}</TechDocsPageProvider>
     </Page>
   );
 };
+
+export const TechDocsPageLayout: FC = ({ children }) => (
+  <TechDocsPage>
+    {({ onReady, entityRef, entityMetadataValue, techdocsMetadataValue }) => (
+      <>
+        <TechDocsPageHeader
+          entityRef={entityRef}
+          entityMetadata={entityMetadataValue}
+          techDocsMetadata={techdocsMetadataValue}
+        />
+        <Content data-testid="techdocs-content">
+          <Reader onReady={onReady} entityRef={entityRef}>
+            {children}
+          </Reader>
+        </Content>
+      </>
+    )}
+  </TechDocsPage>
+);
