@@ -26,8 +26,8 @@ import {
   getEntityRelations,
 } from '@backstage/plugin-catalog-react';
 
-import { rootRouteRef } from '../../routes';
-import { TechDocsEntityMetadata, TechDocsMetadata } from '../../types';
+import { rootRouteRef } from '../../../routes';
+import { TechDocsEntityMetadata, TechDocsMetadata } from '../../../types';
 
 export type TechDocsPageHeaderProps = PropsWithChildren<{
   entityRef: EntityName;
