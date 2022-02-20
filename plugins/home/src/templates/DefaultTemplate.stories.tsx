@@ -21,19 +21,26 @@ import {
   HomePageCompanyLogo,
   HomePageStarredEntities,
 } from '../plugin';
-import { wrapInTestApp, TestApiProvider, MockStorageApi} from '@backstage/test-utils';
+import {
+  wrapInTestApp,
+  TestApiProvider,
+  MockStorageApi,
+} from '@backstage/test-utils';
 import { Content, Page, InfoCard } from '@backstage/core-components';
 import {
   starredEntitiesApiRef,
   entityRouteRef,
-  DefaultStarredEntitiesApi
+  DefaultStarredEntitiesApi,
 } from '@backstage/plugin-catalog-react';
+import { configApiRef } from '@backstage/core-plugin-api';
+import { ConfigReader } from '@backstage/config';
 import {
   HomePageSearchBar,
   SearchContextProvider,
   searchApiRef,
   searchPlugin,
 } from '@backstage/plugin-search';
+import { HomePageStackOverflowQuestions } from '@backstage/plugin-stack-overflow';
 import { Grid, makeStyles } from '@material-ui/core';
 import React, { ComponentType } from 'react';
 
@@ -44,7 +51,7 @@ mockStorageApi
     'component:default/example-starred-entity',
     'component:default/example-starred-entity-2',
     'component:default/example-starred-entity-3',
-    'component:default/example-starred-entity-4'
+    'component:default/example-starred-entity-4',
   ]);
 
 export default {
@@ -62,6 +69,14 @@ export default {
                 }),
               ],
               [searchApiRef, { query: () => Promise.resolve({ results: [] }) }],
+              [
+                configApiRef,
+                new ConfigReader({
+                  stackoverflow: {
+                    baseUrl: 'https://api.stackexchange.com/2.2',
+                  },
+                }),
+              ],
             ]}
           >
             <Story />
@@ -137,14 +152,17 @@ export const DefaultTemplate = () => {
               <Grid item xs={12} md={6}>
                 <InfoCard title="Composable Section">
                   {/* placeholder for content */}
-                  <div style={{ height: 210 }} />
+                  <div style={{ height: 370 }} />
                 </InfoCard>
               </Grid>
               <Grid item xs={12} md={6}>
-                <InfoCard title="Composable Section">
-                  {/* placeholder for content */}
-                  <div style={{ height: 210 }} />
-                </InfoCard>
+                <HomePageStackOverflowQuestions
+                  requestParams={{
+                    tagged: 'backstage',
+                    site: 'stackoverflow',
+                    pagesize: 5,
+                  }}
+                />
               </Grid>
             </Grid>
           </Grid>
@@ -153,4 +171,3 @@ export const DefaultTemplate = () => {
     </SearchContextProvider>
   );
 };
-
