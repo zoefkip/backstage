@@ -14,6 +14,18 @@
  * limitations under the License.
  */
 
-export * from './MkDocsContent';
-export * from './MkDocsContentTransformers';
-export * from './techDocsPage';
+import { useTechDocsShadowDom } from '@backstage/plugin-techdocs';
+
+import * as RULES from './rules';
+import { useCssRules } from '../hooks';
+
+export const StylesTransformer = () => {
+  const dom = useTechDocsShadowDom();
+  const rules = useCssRules(Object.values(RULES));
+
+  dom
+    .getElementsByTagName('head')[0]
+    .insertAdjacentHTML('beforeend', `<style>${rules}</style>`);
+
+  return null;
+};
