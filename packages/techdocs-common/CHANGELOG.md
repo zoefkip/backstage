@@ -1,5 +1,15 @@
 # @backstage/techdocs-common
 
+## 0.11.10
+
+### Patch Changes
+
+- 209fd128e6: Updated usage of `github:` location types in docs to use `url:` instead.
+- Updated dependencies
+  - @backstage/backend-common@0.10.10
+  - @backstage/catalog-model@0.11.0
+  - @backstage/integration@0.7.5
+
 ## 0.11.9
 
 ### Patch Changes

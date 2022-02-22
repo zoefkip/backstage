@@ -1,5 +1,25 @@
 # @backstage/plugin-catalog-react
 
+## 0.7.0
+
+### Minor Changes
+
+- e2e0b6625c: Improved API documentation.
+
+  **BREAKING**: The individual table column factories (e.g. `createEntityRefColumn`) are now no longer available directly, but only through `EntityTable.columns`.
+
+### Patch Changes
+
+- a8331830f1: Deprecated the `useEntityKinds` hook due to low usage and utility value.
+- 6e1cbc12a6: Updated according to the new `getEntityFacets` catalog API method
+- b776ce5aab: Deprecated the `useEntityListProvider` hook which is now renamed to `useEntityList`
+- 2d339b5f2c: Deprecated `useEntityFromUrl` and the `useEntityCompoundName` hooks as these have very low utility value.
+- Updated dependencies
+  - @backstage/core-components@0.8.10
+  - @backstage/catalog-model@0.11.0
+  - @backstage/integration@0.7.5
+  - @backstage/catalog-client@0.7.2
+
 ## 0.6.15
 
 ### Patch Changes

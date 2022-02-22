@@ -1,5 +1,34 @@
 # @backstage/plugin-techdocs-backend
 
+## 0.14.0
+
+### Minor Changes
+
+- a925ba8385: BREAKING: constructor based initialization of DefaultTechDocsCollator now deprecated. Use static fromConfig method instead.
+
+  ```diff
+  indexBuilder.addCollator({
+    defaultRefreshIntervalSeconds: 600,
+  -   collator: new DefaultTechDocsCollator({
+  +   collator: DefaultTechDocsCollator.fromConfig(config, {
+      discovery,
+      logger,
+      tokenManager,
+    }),
+  });
+  ```
+
+  Note: in an upcoming release, TechDocs backend's /sync/:namespace/:kind/:name endpoint will only respond to text/event-stream-based requests. Update any custom code at your organization accordingly.
+
+### Patch Changes
+
+- Updated dependencies
+  - @backstage/backend-common@0.10.10
+  - @backstage/catalog-model@0.11.0
+  - @backstage/techdocs-common@0.11.10
+  - @backstage/integration@0.7.5
+  - @backstage/catalog-client@0.7.2
+
 ## 0.13.5
 
 ### Patch Changes

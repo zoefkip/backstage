@@ -1,5 +1,17 @@
 # @backstage/plugin-catalog-graph
 
+## 0.2.12
+
+### Patch Changes
+
+- a8331830f1: Remove use of deprecated `useEntityKinds` hook.
+- 6e1cbc12a6: Updated according to the new `getEntityFacets` catalog API method
+- Updated dependencies
+  - @backstage/core-components@0.8.10
+  - @backstage/plugin-catalog-react@0.7.0
+  - @backstage/catalog-model@0.11.0
+  - @backstage/catalog-client@0.7.2
+
 ## 0.2.11
 
 ### Patch Changes

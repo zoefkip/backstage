@@ -1,5 +1,39 @@
 # @backstage/plugin-techdocs
 
+## 0.14.0
+
+### Minor Changes
+
+- 2262fe19c9: **BREAKING**: Removed support for passing in an explicit `entity` prop to entity page extensions, which has been deprecated for a long time. This is only a breaking change at the TypeScript level, as this property was already ignored.
+- 4faae902eb: Adjust the Tech Docs page theme as a side effect of the `mkdocs-material` theme update.
+
+  If you use the `spofify/techdocs` image to build your documentation, make sure you use version `spotify/techdocs:v0.3.7`.
+
+  **Breaking**: The `PyMdown` extensions have also been updated and some syntax may have changed, so it is recommended that you check the extension's documentation if something stops working.
+  For example, the syntax of tags below was deprecated in `PyMdown` extensions `v.7.0` and in `v.8.0.0` it has been removed. This means that the old syntax specified below no longer works.
+
+  ````markdown
+  ```markdown tab="tab"
+  This is some markdown
+  ```
+
+  ```markdown tab="tab 2"
+  This is some markdown in tab 2
+  ```
+  ````
+
+### Patch Changes
+
+- 3bbb4d98c6: Changed <TechdocsPage /> to use <NotFoundErrorPage /> from createApp
+- b776ce5aab: Replaced use of deprecated `useEntityListProvider` hook with `useEntityList`.
+- Updated dependencies
+  - @backstage/plugin-catalog@0.9.0
+  - @backstage/core-components@0.8.10
+  - @backstage/plugin-catalog-react@0.7.0
+  - @backstage/catalog-model@0.11.0
+  - @backstage/integration@0.7.5
+  - @backstage/plugin-search@0.7.1
+
 ## 0.13.4
 
 ### Patch Changes

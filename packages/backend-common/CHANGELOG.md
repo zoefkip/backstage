@@ -1,5 +1,14 @@
 # @backstage/backend-common
 
+## 0.10.10
+
+### Patch Changes
+
+- b2f8bb99d3: Make backend.auth.keys optional in config schema. Previously backend.auth was optional but keys was not, which meant that if another plugin introduced additional properties under backend.auth, it would implicitly make backend.auth.keys mandatory.
+- Updated dependencies
+  - @backstage/config-loader@0.9.6
+  - @backstage/integration@0.7.5
+
 ## 0.10.9
 
 ### Patch Changes
