@@ -28,9 +28,14 @@ import Autocomplete from '@material-ui/lab/Autocomplete';
 import React, { ChangeEvent, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router';
 import useDebounce from 'react-use/lib/useDebounce';
-import { DocsResultListItem } from '../../components/DocsResultListItem';
+import { TechDocsSearchResultListItem } from '../../search';
 
-type TechDocsSearchProps = {
+/**
+ * Props for {@link TechDocsSearch}
+ *
+ * @public
+ */
+export type TechDocsSearchProps = {
   entityId: EntityName;
   debounceTime?: number;
 };
@@ -49,10 +54,8 @@ type TechDocsSearchResult = {
   document: TechDocsDoc;
 };
 
-const TechDocsSearchBar = ({
-  entityId,
-  debounceTime = 150,
-}: TechDocsSearchProps) => {
+const TechDocsSearchBar = (props: TechDocsSearchProps) => {
+  const { entityId, debounceTime = 150 } = props;
   const [open, setOpen] = useState(false);
   const navigate = useNavigate();
   const {
@@ -116,7 +119,7 @@ const TechDocsSearchBar = ({
         value={null}
         options={options}
         renderOption={({ document }) => (
-          <DocsResultListItem
+          <TechDocsSearchResultListItem
             result={document}
             lineClamp={3}
             asListItem={false}
@@ -159,6 +162,11 @@ const TechDocsSearchBar = ({
   );
 };
 
+/**
+ * Component used to render search bar on TechDocs page, scoped to
+ *
+ * @public
+ */
 export const TechDocsSearch = (props: TechDocsSearchProps) => {
   const initialState = {
     term: '',
