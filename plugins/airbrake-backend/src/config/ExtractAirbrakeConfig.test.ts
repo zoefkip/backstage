@@ -13,18 +13,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { getVoidLogger } from '@backstage/backend-common';
+
 import { ConfigReader } from '@backstage/config';
 import { extractAirbrakeConfig } from './ExtractAirbrakeConfig';
-import * as winston from 'winston';
 
 describe('ExtractAirbrakeConfig', () => {
   let oldProcessEnv: NodeJS.ProcessEnv;
-  let voidLogger: winston.Logger;
 
   beforeEach(() => {
     oldProcessEnv = process.env;
-    voidLogger = getVoidLogger();
   });
 
   it('gets the API key', () => {
@@ -34,7 +31,7 @@ describe('ExtractAirbrakeConfig', () => {
       },
     });
 
-    const airbrakeConfig = extractAirbrakeConfig(config, voidLogger);
+    const airbrakeConfig = extractAirbrakeConfig(config);
     expect(airbrakeConfig.apiKey).toStrictEqual('fakeApiKey');
   });
 
@@ -46,8 +43,8 @@ describe('ExtractAirbrakeConfig', () => {
 
     const config = new ConfigReader({});
 
-    expect(() => extractAirbrakeConfig(config, voidLogger)).not.toThrow();
-    const airbrakeConfig = extractAirbrakeConfig(config, voidLogger);
+    expect(() => extractAirbrakeConfig(config)).not.toThrow();
+    const airbrakeConfig = extractAirbrakeConfig(config);
     expect(airbrakeConfig.apiKey).toStrictEqual('');
   });
 
@@ -58,7 +55,7 @@ describe('ExtractAirbrakeConfig', () => {
     };
 
     const config = new ConfigReader({});
-    expect(() => extractAirbrakeConfig(config, voidLogger)).toThrow();
+    expect(() => extractAirbrakeConfig(config)).toThrow();
   });
 
   afterEach(() => {
